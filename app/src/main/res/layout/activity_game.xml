@@ -3,22 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
+
 
     <TextView
         android:id="@+id/imageNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Who's man's is this?"
+        android:text="What animal is this?"
         android:textSize="40sp" />
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="332dp"
         android:layout_height="473dp"
-        android:layout_gravity="center"
-        android:src="@drawable/dog" />
-
+        android:layout_gravity="center"/>
     <Button
         android:id="@+id/alt1"
         android:layout_width="match_parent"

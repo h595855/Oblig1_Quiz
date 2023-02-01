@@ -5,4 +5,23 @@
         <item>@drawable/cat</item>
         <item>@drawable/dog</item>
     </array>
+
+    <array name="among_text">
+        <item>Among Us</item>
+        <item>Cat</item>
+        <item>Airplane</item>
+    </array>
+
+    <array name="cat_text">
+        <item>Cat</item>
+        <item>Fish</item>
+        <item>Hobbit</item>
+    </array>
+
+    <array name="dog_text">
+        <item>Tree</item>
+        <item>Wasp</item>
+        <item>Dog</item>
+    </array>
+
 </resources>
