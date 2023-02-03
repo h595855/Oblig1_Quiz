@@ -9,13 +9,13 @@ public class Animal {
     private int id;
 
     private String name;
-    private String Uri;
+    private int image;
 
 
-    public Animal(int id, String name, String Uri) {
+    public Animal(int id, String name, int image) {
         this.id = id;
         this.name = name;
-        this.Uri = Uri;
+        this.image = image;
     }
     //private Byte[] bytes;
 
@@ -23,16 +23,16 @@ public class Animal {
         return name;
     }
 
-    public String getUri() {
-        return Uri;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setUri(String uri) {
-        Uri = uri;
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public int getId() {

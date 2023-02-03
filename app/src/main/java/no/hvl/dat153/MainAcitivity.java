@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainAcitivity extends AppCompatActivity {
 
@@ -21,6 +22,16 @@ public class MainAcitivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainAcitivity.this, GameActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        Button Database = findViewById(R.id.database);
+        Database.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < 20; i++) {
+                    Toast.makeText(getApplicationContext(), "Among Us", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
