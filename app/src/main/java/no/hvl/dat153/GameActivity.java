@@ -75,15 +75,11 @@ public class GameActivity extends AppCompatActivity {
                     showPopUpBox("Rett svar");
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
-                    ImageView img = (ImageView) findViewById(R.id.image);
-
-                    //Set random image from random chosen animal
                     img.setImageResource(animal2.getImage());
                 } else {
                     showPopUpBox("Feil svar. Rett svar var:" + animal.getName());
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
-                    ImageView img = (ImageView) findViewById(R.id.image);
                     img.setImageResource(animal2.getImage());
                 }
             }
@@ -94,16 +90,13 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (option2.getText() == animal.getName()) {
                     showPopUpBox("Rett svar");
-
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
-                    ImageView img = (ImageView) findViewById(R.id.image);
                     img.setImageResource(animal2.getImage());
                 } else {
                     showPopUpBox("Feil svar. Rett svar var: " + animal.getName());
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
-                    ImageView img = (ImageView) findViewById(R.id.image);
                     img.setImageResource(animal2.getImage());
                 }
             }
@@ -116,13 +109,11 @@ public class GameActivity extends AppCompatActivity {
                     showPopUpBox("Rett svar");
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
-                    ImageView img = (ImageView) findViewById(R.id.image);
                     img.setImageResource(animal2.getImage());
                 } else {
                     showPopUpBox("Feil svar. Rett svar var: " + animal.getName());
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
-                    ImageView img = (ImageView) findViewById(R.id.image);
                     img.setImageResource(animal2.getImage());
                 }
             }
