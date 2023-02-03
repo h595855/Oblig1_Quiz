@@ -34,8 +34,11 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-
     private void spill(){
+
+        Score score = new Score(0);
+        int stilling = 0;
+
         int catInt = this.getResources().getIdentifier("cat", "drawable", this.getPackageName());
         int amongInt = this.getResources().getIdentifier("among", "drawable", this.getPackageName());
         int dogInt = this.getResources().getIdentifier("dog", "drawable", this.getPackageName());
@@ -49,11 +52,7 @@ public class GameActivity extends AppCompatActivity {
         items.add(among);
 
 
-        Random ran = new Random();
-        int randnum = ran.nextInt(items.size());
-
-        //get random animal from list
-        Animal animal = items.get(randnum);
+        Animal animal = GetRandomAnimal();
 
         ImageView img = (ImageView) findViewById(R.id.image);
 
@@ -74,8 +73,18 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (option1.getText() == animal.getName()) {
                     showPopUpBox("Rett svar");
+                    Animal animal2 = GetRandomAnimal();
+                    animal.setName(animal2.getName());
+                    ImageView img = (ImageView) findViewById(R.id.image);
+
+                    //Set random image from random chosen animal
+                    img.setImageResource(animal2.getImage());
                 } else {
                     showPopUpBox("Feil svar. Rett svar var:" + animal.getName());
+                    Animal animal2 = GetRandomAnimal();
+                    animal.setName(animal2.getName());
+                    ImageView img = (ImageView) findViewById(R.id.image);
+                    img.setImageResource(animal2.getImage());
                 }
             }
         });
@@ -85,8 +94,17 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (option2.getText() == animal.getName()) {
                     showPopUpBox("Rett svar");
+
+                    Animal animal2 = GetRandomAnimal();
+                    animal.setName(animal2.getName());
+                    ImageView img = (ImageView) findViewById(R.id.image);
+                    img.setImageResource(animal2.getImage());
                 } else {
                     showPopUpBox("Feil svar. Rett svar var: " + animal.getName());
+                    Animal animal2 = GetRandomAnimal();
+                    animal.setName(animal2.getName());
+                    ImageView img = (ImageView) findViewById(R.id.image);
+                    img.setImageResource(animal2.getImage());
                 }
             }
         });
@@ -96,12 +114,29 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (option3.getText() == animal.getName()) {
                     showPopUpBox("Rett svar");
+                    Animal animal2 = GetRandomAnimal();
+                    animal.setName(animal2.getName());
+                    ImageView img = (ImageView) findViewById(R.id.image);
+                    img.setImageResource(animal2.getImage());
                 } else {
                     showPopUpBox("Feil svar. Rett svar var: " + animal.getName());
+                    Animal animal2 = GetRandomAnimal();
+                    animal.setName(animal2.getName());
+                    ImageView img = (ImageView) findViewById(R.id.image);
+                    img.setImageResource(animal2.getImage());
                 }
             }
 
         });
+    }
+
+    private Animal GetRandomAnimal(){
+        Random ran = new Random();
+        int randnum = ran.nextInt(items.size());
+        //get random animal from list
+        Animal animal = items.get(randnum);
+
+        return animal;
     }
 
 
@@ -111,7 +146,6 @@ public class GameActivity extends AppCompatActivity {
             .setCancelable(false)
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id){
-
                 }
             });
             AlertDialog alert = builder.create();
