@@ -25,6 +25,7 @@ public class GameActivity extends AppCompatActivity {
 
     int score = 0;
 
+    int stilling = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
     private void spill(){
 
         Score score = new Score(0);
-        int stilling = 0;
+
 
         int catInt = this.getResources().getIdentifier("cat", "drawable", this.getPackageName());
         int amongInt = this.getResources().getIdentifier("among", "drawable", this.getPackageName());
@@ -72,7 +73,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (option1.getText() == animal.getName()) {
-                    showPopUpBox("Rett svar");
+                    stilling++;
+                    showPopUpBox("Rett svar " + " Poeng: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
@@ -89,7 +91,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (option2.getText() == animal.getName()) {
-                    showPopUpBox("Rett svar");
+                    stilling++;
+                    showPopUpBox("Rett svar " + " Poeng: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
@@ -106,7 +109,8 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (option3.getText() == animal.getName()) {
-                    showPopUpBox("Rett svar");
+                    stilling++;
+                    showPopUpBox("Rett svar " + " Poeng: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
