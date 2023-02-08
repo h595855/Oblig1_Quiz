@@ -29,7 +29,7 @@ public class MainAcitivity extends AppCompatActivity {
         Database.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainAcitivity.this, Databasectivity.class);
+                Intent intent = new Intent(MainAcitivity.this, DatabaseActivity.class);
                 startActivity(intent);
             }
         });

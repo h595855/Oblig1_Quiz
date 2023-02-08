@@ -74,12 +74,12 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (option1.getText() == animal.getName()) {
                     stilling++;
-                    showPopUpBox("Rett svar " + " Poeng: " + stilling);
+                    showPopUpBox("Correct! " + "\nPoints: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
                 } else {
-                    showPopUpBox("Feil svar. Rett svar var:" + animal.getName());
+                    showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
@@ -92,12 +92,12 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (option2.getText() == animal.getName()) {
                     stilling++;
-                    showPopUpBox("Rett svar " + " Poeng: " + stilling);
+                    showPopUpBox("Correct! " + "\nPoints: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
                 } else {
-                    showPopUpBox("Feil svar. Rett svar var: " + animal.getName());
+                    showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
@@ -110,12 +110,12 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (option3.getText() == animal.getName()) {
                     stilling++;
-                    showPopUpBox("Rett svar " + " Poeng: " + stilling);
+                    showPopUpBox("Correct! " + "\nPoints: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
                 } else {
-                    showPopUpBox("Feil svar. Rett svar var: " + animal.getName());
+                    showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                     Animal animal2 = GetRandomAnimal();
                     animal.setName(animal2.getName());
                     img.setImageResource(animal2.getImage());
