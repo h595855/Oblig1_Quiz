@@ -1,5 +1,6 @@
 package no.hvl.dat153;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 
 import androidx.annotation.DrawableRes;
@@ -9,11 +10,10 @@ public class Animal {
     private int id;
 
     private String name;
-    private int image;
+    private Bitmap image;
 
 
-    public Animal(int id, String name, int image) {
-        this.id = id;
+    public Animal(String name, Bitmap image) {
         this.name = name;
         this.image = image;
     }
@@ -27,11 +27,11 @@ public class Animal {
         this.name = name;
     }
 
-    public int getImage() {
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 

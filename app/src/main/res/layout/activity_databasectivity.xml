@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Databasectivity">
+    tools:context=".DatabaseActivity">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,8 +22,8 @@
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <ListView
-        android:layout_width="409dp"
-        android:layout_height="644dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
