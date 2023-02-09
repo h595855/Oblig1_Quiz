@@ -3,6 +3,7 @@ package no.hvl.dat153;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -66,7 +67,7 @@ public class AddPictureActivity extends AppCompatActivity {
         addPictureActivity.launch(i);
     }
 
-
+    //pics image from the gallery/filesystem
     ActivityResultLauncher<Intent> addPictureActivity
             = registerForActivityResult(
             new ActivityResultContracts
@@ -82,6 +83,8 @@ public class AddPictureActivity extends AppCompatActivity {
                 try {
                     Bitmap selectedImageBitmap = ImageDecoder.decodeBitmap(source);
                     imageView.setImageBitmap(selectedImageBitmap);
+                    AnimalHolder imageHolder = AnimalHolder.getInstance();
+                    imageHolder.addAnimal(new Animal("among", selectedImageBitmap));
                 }
                 catch (IOException e) {
                     e.printStackTrace();
@@ -89,6 +92,9 @@ public class AddPictureActivity extends AppCompatActivity {
             }
         }
     });
+
+    private void addToList(){
+    }
 
 
 

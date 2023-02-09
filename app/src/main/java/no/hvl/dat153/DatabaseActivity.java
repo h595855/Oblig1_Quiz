@@ -39,16 +39,18 @@ public class DatabaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_databasectivity);
 
         listView = findViewById(R.id.list_view);
-        listItems = new ArrayList<>();
 
+        AnimalHolder imageHolder = AnimalHolder.getInstance();
+        
         Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
         Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
         Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
 
-        listItems.add(a1);
-        listItems.add(a2);
-        listItems.add(a3);
+        imageHolder.addAnimal(a1);
+        imageHolder.addAnimal(a2);
+        imageHolder.addAnimal(a3);
 
+        listItems = AnimalHolder.getAnimals();
 
         listAdapter = new ListAdapter(this, R.layout.animalitem, listItems);
         listView.setAdapter(listAdapter);
