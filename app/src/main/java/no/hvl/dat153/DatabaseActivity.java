@@ -1,20 +1,15 @@
 package no.hvl.dat153;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,43 +20,59 @@ import java.util.Set;
 
 public class DatabaseActivity extends AppCompatActivity {
 
+    Set<Animal> images = new HashSet<Animal>();
     private ListView listView;
     private ListAdapter listAdapter;
-    private List<Animal> listItems;
+    private List<Animal> animalList;
 
-    private Animal animal;
+    private ActivityResultLauncher<Intent> AddPictureActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    Bundle extras = data.getExtras();
+                    Animal newAnimal = extras.getParcelable("animal", Animal.class);
+                    animalList.add(newAnimal);
+                    //updating the list
+                    listAdapter = new ListAdapter(this, R.layout.animalitem, animalList);
+                    listView.setAdapter(listAdapter);
+                }
+            });
 
-    Set<Animal> images = new HashSet<Animal>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_databasectivity);
 
+        //getting listview
         listView = findViewById(R.id.list_view);
+        animalList = new ArrayList<>();
 
-        AnimalHolder imageHolder = AnimalHolder.getInstance();
-        
+        //creating & adding initial animals to the list
         Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
         Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
         Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
 
-        imageHolder.addAnimal(a1);
-        imageHolder.addAnimal(a2);
-        imageHolder.addAnimal(a3);
+        //adding to list
+        animalList.add(a1);
+        animalList.add(a2);
+        animalList.add(a3);
 
-        listItems = AnimalHolder.getAnimals();
-
-        listAdapter = new ListAdapter(this, R.layout.animalitem, listItems);
+        //creating listview of images
+        listAdapter = new ListAdapter(this, R.layout.animalitem, animalList);
         listView.setAdapter(listAdapter);
+
 
         FloatingActionButton floatAdd = (FloatingActionButton) findViewById(R.id.addPicture);
 
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //making second activity to get update add to list
                 Intent intent = new Intent(DatabaseActivity.this, AddPictureActivity.class);
-                startActivity(intent);
+                AddPictureActivity.launch(intent);
+
             }
         });
     }

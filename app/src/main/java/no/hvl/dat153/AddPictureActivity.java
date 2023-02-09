@@ -25,10 +25,14 @@ public class AddPictureActivity extends AppCompatActivity {
     //upload button
     Button uploadButton;
 
+    //submit button
+    Button submitButton;
+
+    Animal animal = null;
+
     // constant to compare
     // the activity result code
     int SELECT_PICTURE = 200;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class AddPictureActivity extends AppCompatActivity {
         // register the UI widgets with their appropriate IDs
         imageView = findViewById(R.id.imageView);
         uploadButton = findViewById(R.id.uploadButton);
+        submitButton = findViewById(R.id.submitButton);
 
         /*
         handle the Choose Image button to trigger
@@ -47,6 +52,13 @@ public class AddPictureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 imagePicker();
+            }
+        });
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnResult();
             }
         });
     }
@@ -73,18 +85,20 @@ public class AddPictureActivity extends AppCompatActivity {
             new ActivityResultContracts
             .StartActivityForResult(),
     result -> {
-        if (result.getResultCode()
-                == Activity.RESULT_OK) {
+        if (result.getResultCode() == Activity.RESULT_OK) {
             Intent data = result.getData();
-            // do your operation from here....
+            /*
+            can do anything with the object retrieved from previous
+            activity from here
+             */
             if (data != null && data.getData() != null) {
+                //retrieving the uri of the chosen image
                 Uri selectedImageUri = data.getData();
                 ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageUri);
                 try {
                     Bitmap selectedImageBitmap = ImageDecoder.decodeBitmap(source);
                     imageView.setImageBitmap(selectedImageBitmap);
-                    AnimalHolder imageHolder = AnimalHolder.getInstance();
-                    imageHolder.addAnimal(new Animal("among", selectedImageBitmap));
+                    animal = new Animal("among", selectedImageBitmap);
                 }
                 catch (IOException e) {
                     e.printStackTrace();
@@ -93,9 +107,13 @@ public class AddPictureActivity extends AppCompatActivity {
         }
     });
 
-    private void addToList(){
+    private void returnResult() {
+        Intent resultIntent = new Intent();
+        //animal class has to implement serializable or parcelable
+        resultIntent.putExtra("animal", animal);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
-
 
 
 }//class

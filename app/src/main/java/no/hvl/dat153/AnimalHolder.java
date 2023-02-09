@@ -10,6 +10,7 @@ public class AnimalHolder {
     public static ArrayList<Animal> animals;
     private static AnimalHolder instance;
 
+    //experiment on having a static list of objects between activity classes
     private AnimalHolder() {
         animals = new ArrayList<>();
     }
