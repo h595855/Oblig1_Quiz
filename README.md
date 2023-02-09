@@ -1,6 +1,14 @@
 # Oblig1_Quiz
 Oblig 1 for DAT143 📱. 
 
+
+Group 7
+<br />&emsp;Members: 
+<br />&emsp;&emsp;        Bjørn Eide
+<br />&emsp;&emsp;        Carl Alfred Emanuel Nordqvist
+<br />&emsp;&emsp;        Maksim Ohvrill
+<br />&emsp;&emsp;        Batuhan Titrek
+
 This is a prompt for an Android app development assignment.   
 
 The app is a quiz game where users match names and photos
@@ -18,3 +26,4 @@ The app is a quiz game where users match names and photos
  and to add 2 or 3 photos and names to the app through the resource folder.
  The code should be submitted as a link to a Git repository, and the instructions also mention to use Git properly, document the code, and make sure 
  navigating back from an activity works correctly.
+

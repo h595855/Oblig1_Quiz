@@ -29,9 +29,8 @@ public class MainAcitivity extends AppCompatActivity {
         Database.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < 20; i++) {
-                    Toast.makeText(getApplicationContext(), "Among Us", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(MainAcitivity.this, DatabaseActivity.class);
+                startActivity(intent);
             }
         });
     }
