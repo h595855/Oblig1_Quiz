@@ -3,9 +3,9 @@ package no.hvl.dat153;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -50,42 +50,45 @@ public class AddPictureActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    function is triggered when button is clicked
+     */
     private void imagePicker()
     {
+        /*
+        creates instance of intent of type image
+         */
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
 
-        launchSomeActivity.launch(i);
+        //launch the activity to add picture
+        addPictureActivity.launch(i);
     }
 
-    ActivityResultLauncher<Intent> launchSomeActivity
+
+    ActivityResultLauncher<Intent> addPictureActivity
             = registerForActivityResult(
             new ActivityResultContracts
-                    .StartActivityForResult(),
-            result -> {
-                if (result.getResultCode()
-                        == Activity.RESULT_OK) {
-                    Intent data = result.getData();
-                    // do your operation from here....
-                    if (data != null
-                            && data.getData() != null) {
-                        Uri selectedImageUri = data.getData();
-                        Bitmap selectedImageBitmap = null;
-                        try {
-                            selectedImageBitmap
-                                    = MediaStore.Images.Media.getBitmap(
-                                    this.getContentResolver(),
-                                    selectedImageUri);
-                        }
-                        catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        imageView.setImageBitmap(
-                                selectedImageBitmap);
-                    }
+            .StartActivityForResult(),
+    result -> {
+        if (result.getResultCode()
+                == Activity.RESULT_OK) {
+            Intent data = result.getData();
+            // do your operation from here....
+            if (data != null && data.getData() != null) {
+                Uri selectedImageUri = data.getData();
+                ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageUri);
+                try {
+                    Bitmap selectedImageBitmap = ImageDecoder.decodeBitmap(source);
+                    imageView.setImageBitmap(selectedImageBitmap);
                 }
-            });
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    });
 
 
 
