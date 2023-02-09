@@ -1,4 +1,12 @@
 # Oblig1_Quiz
+
+Group 7
+    Members: 
+        Bjørn Eide
+        Carl Alfred Emanuel Nordqvist
+        Maksim Ohvrill
+        Batuhan Titrek
+
 Oblig 1 for DAT143 📱. 
 
 This is a prompt for an Android app development assignment.   
