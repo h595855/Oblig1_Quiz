@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -19,12 +20,7 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
-    ArrayList<Animal> items = new ArrayList<Animal>();
-
-    ArrayList<Integer> test = new ArrayList<>();
-
-    int score = 0;
-
+    int stilling = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,28 +32,35 @@ public class GameActivity extends AppCompatActivity {
 
     private void spill(){
 
-        Score score = new Score(0);
-        int stilling = 0;
+        Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
+        Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
+        Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
+
+        ArrayList<Animal> items = new ArrayList<Animal>();
 
         int catInt = this.getResources().getIdentifier("cat", "drawable", this.getPackageName());
         int amongInt = this.getResources().getIdentifier("among", "drawable", this.getPackageName());
         int dogInt = this.getResources().getIdentifier("dog", "drawable", this.getPackageName());
 
-        Animal cat = new Animal(1, "Cat", catInt);
-        Animal dog = new Animal(2, "dog", dogInt);
-        Animal among = new Animal(3, "among", amongInt);
+        items.add(a1);
+        items.add(a2);
+        items.add(a3);
 
-        items.add(cat);
-        items.add(dog);
-        items.add(among);
+        //Animal cat = new Animal(1, "Cat", catInt);
+        //Animal dog = new Animal(2, "dog", dogInt);
+        //Animal among = new Animal(3, "among", amongInt);
+
+       // items.add(cat);
+       // items.add(dog);
+        // items.add(among);
 
 
-        Animal animal = GetRandomAnimal();
+        Animal animal = GetRandomAnimal(items);
 
         ImageView img = (ImageView) findViewById(R.id.image);
 
         //Set random image from random chosen animal
-        img.setImageResource(animal.getImage());
+        img.setImageBitmap(animal.getImage());
 
         Button option1 = findViewById(R.id.alt1);
         Button option2 = findViewById(R.id.alt2);
@@ -72,15 +75,16 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (option1.getText() == animal.getName()) {
-                    showPopUpBox("Rett svar");
-                    Animal animal2 = GetRandomAnimal();
+                    stilling++;
+                    showPopUpBox("Correct! " + "\nPoints: " + stilling);
+                    Animal animal2 = GetRandomAnimal(items);
                     animal.setName(animal2.getName());
-                    img.setImageResource(animal2.getImage());
+                    img.setImageBitmap(animal2.getImage());
                 } else {
-                    showPopUpBox("Feil svar. Rett svar var:" + animal.getName());
-                    Animal animal2 = GetRandomAnimal();
+                    showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
+                    Animal animal2 = GetRandomAnimal(items);
                     animal.setName(animal2.getName());
-                    img.setImageResource(animal2.getImage());
+                    img.setImageBitmap(animal2.getImage());
                 }
             }
         });
@@ -89,15 +93,16 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (option2.getText() == animal.getName()) {
-                    showPopUpBox("Rett svar");
-                    Animal animal2 = GetRandomAnimal();
+                    stilling++;
+                    showPopUpBox("Correct! " + "\nPoints: " + stilling);
+                    Animal animal2 = GetRandomAnimal(items);
                     animal.setName(animal2.getName());
-                    img.setImageResource(animal2.getImage());
+                    img.setImageBitmap(animal2.getImage());
                 } else {
-                    showPopUpBox("Feil svar. Rett svar var: " + animal.getName());
-                    Animal animal2 = GetRandomAnimal();
+                    showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
+                    Animal animal2 = GetRandomAnimal(items);
                     animal.setName(animal2.getName());
-                    img.setImageResource(animal2.getImage());
+                    img.setImageBitmap(animal2.getImage());
                 }
             }
         });
@@ -106,28 +111,30 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (option3.getText() == animal.getName()) {
-                    showPopUpBox("Rett svar");
-                    Animal animal2 = GetRandomAnimal();
+                    stilling++;
+                    showPopUpBox("Correct! " + "\nPoints: " + stilling);
+                    Animal animal2 = GetRandomAnimal(items);
                     animal.setName(animal2.getName());
-                    img.setImageResource(animal2.getImage());
+                    img.setImageBitmap(animal2.getImage());
                 } else {
-                    showPopUpBox("Feil svar. Rett svar var: " + animal.getName());
-                    Animal animal2 = GetRandomAnimal();
+                    showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
+                    Animal animal2 = GetRandomAnimal(items);
                     animal.setName(animal2.getName());
-                    img.setImageResource(animal2.getImage());
+                    img.setImageBitmap(animal2.getImage());
                 }
             }
 
         });
     }
 
-    private Animal GetRandomAnimal(){
-        Random ran = new Random();
-        int randnum = ran.nextInt(items.size());
-        //get random animal from list
-        Animal animal = items.get(randnum);
-
-        return animal;
+    private Animal GetRandomAnimal(List<Animal> items) {
+        Random random = new Random();
+        if (items.size() > 0) {
+            int index = random.nextInt(items.size());
+            return items.get(index);
+        } else {
+            throw new IllegalArgumentException("List must contain at least one item" + items.size());
+        }
     }
 
 
