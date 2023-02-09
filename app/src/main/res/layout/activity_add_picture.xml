@@ -10,14 +10,14 @@
         android:id="@+id/imageView"
         android:layout_width="272dp"
         android:layout_height="321dp"
+        android:contextClickable="false"
+        android:onClick="selectImage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.27"
-        android:onClick="selectImage"
-        />
+        app:layout_constraintVertical_bias="0.275" />
 
     <EditText
         android:id="@+id/animalName"
@@ -28,10 +28,10 @@
         android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
+        app:layout_constraintVertical_bias="0.759" />
 
     <Button
         android:id="@+id/submitButton"
@@ -40,10 +40,10 @@
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.868" />
 
     <TextView
         android:id="@+id/addnewText"
@@ -55,4 +55,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/uploadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="upload"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="452dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
