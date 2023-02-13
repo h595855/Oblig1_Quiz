@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Switch mSwitch = findViewById(R.id.hardMode);
+                mSwitch = findViewById(R.id.hardMode);
                 isCheckedo = mSwitch.isChecked();
                 //checking if the switch is put on
                 mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

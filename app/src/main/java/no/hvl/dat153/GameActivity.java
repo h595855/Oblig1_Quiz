@@ -43,6 +43,14 @@ public class GameActivity extends AppCompatActivity {
 
         spill();
 
+
+    }
+    //fixes the part when user exits activity timer is canceled 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timer.cancel();
+        timer = null;
     }
 
     private void spill() {
