@@ -1,24 +1,24 @@
 # Oblig1_Quiz
-Oblig 1 for DAT143 📱. 
+Oblig 1 for DAT153 📱. 
 
 
-Group 7
-<br />&emsp;Members: 
+Group 7️⃣
+<br />&emsp;Members: 👨‍👨‍👧‍👧
 <br />&emsp;&emsp;        Bjørn Eide
 <br />&emsp;&emsp;        Carl Alfred Emanuel Nordqvist
 <br />&emsp;&emsp;        Maksim Ohvrill
 <br />&emsp;&emsp;        Batuhan Titrek
 
-This is a prompt for an Android app development assignment.   
+This is a prompt for an Android app development assignment. 📳  
 
 The app is a quiz game where users match names and photos
  The app should have three core activities:
  
- a "database" activity that shows all names and pictures and allows the user to add, remove, and sort entries.
+ a "database" activity that shows all names and pictures and allows the user to add, remove, and sort entries. 🖥
  
- a "quiz" activity that randomly selects a photo and presents the correct name and two wrong names,
+ a "quiz" activity that randomly selects a photo and presents the correct name and two wrong names, 🕹
  
- an "add entry" activity where the user can add new photos and names to the database.
+ an "add entry" activity where the user can add new photos and names to the database. ➕
  
  The main menu should have a switch for easy or hard mode, and the app should keep track of the score in the quiz activity.
  
