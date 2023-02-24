@@ -1,6 +1,6 @@
-# Oblig 1 Quiz
+# Oblig 1 & 2 Quiz
 
-Oblig 1 for DAT153 📱. 
+Oblig 1 & 2for DAT153 📱. 
 
 Group 7️⃣
 <br />&emsp;Members: 👨‍👨‍👧‍👧
@@ -21,6 +21,14 @@ The app is a quiz game where users match names and photos
  an "add entry" activity where the user can add new photos and names to the database. ➕
  
  The main menu should have a switch for easy or hard mode, and the app should keep track of the score in the quiz activity.
+ 
+ Now featuring DATABASE technologies.
+ 
+ implementing data storage using Android Room DAOs to save user data and ensure that it is not lost when the app is restarted.
+ 
+ The third task involves writing test cases using Espresso for the app. 
+ 
+ At least three test cases are required, including one that checks if the correct button is clicked to take the user to the right sub-activity,
  
  The instructions also mention to not immediately use a fancy database and to use a simple data structure from the Collections interface,
  and to add 2 or 3 photos and names to the app through the resource folder.
