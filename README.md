@@ -30,8 +30,9 @@ The app is a quiz game where users match names and photos
  
  At least three test cases are required, including one that checks if the correct button is clicked to take the user to the right sub-activity,
  
- The instructions also mention to not immediately use a fancy database and to use a simple data structure from the Collections interface,
- and to add 2 or 3 photos and names to the app through the resource folder.
+ Useing Android Room DAO to create a easy to manage database for the application.
+ The database will store new pictures and the user score.
+
  The code should be submitted as a link to a Git repository, and the instructions also mention to use Git properly, document the code, and make sure 
  navigating back from an activity works correctly.
 
