@@ -46,7 +46,6 @@ public class GameActivity extends AppCompatActivity {
 
         spill();
 
-
     }
     //fixes the part when user exits activity timer is canceled
     @Override
@@ -101,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
                         img.setImageBitmap(animal2.getImage());
                     }
 
-                    resetTimer();
+                    //resetTimer();
                 }
             });
 
@@ -121,7 +120,7 @@ public class GameActivity extends AppCompatActivity {
                         img.setImageBitmap(animal2.getImage());
                     }
 
-                    resetTimer();
+                   // resetTimer();
                 }
             });
 
@@ -141,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
                         img.setImageBitmap(animal2.getImage());
                     }
 
-                    resetTimer();
+                  //  resetTimer();
                 }
 
 
@@ -256,9 +255,15 @@ public class GameActivity extends AppCompatActivity {
             }
         }.start();
     }
-
     private void showTimer(){
         timerTextView = (TextView) findViewById(R.id.timer_text_view);
         startTimer();
     }
+
+    @Override
+    public void onBackPressed(){
+        Toast.makeText(this,"Thanksss", Toast.LENGTH_SHORT).show();
+        finish();
+        return;
+     }
 }
