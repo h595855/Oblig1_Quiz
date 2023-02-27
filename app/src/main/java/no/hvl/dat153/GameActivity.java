@@ -8,6 +8,8 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     private Animal animal;
     private ImageView img;
     private CountDownTimer timer;
+    private TextView timerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     }
-    //fixes the part when user exits activity timer is canceled 
+    //fixes the part when user exits activity timer is canceled
     @Override
     protected void onPause() {
         //super has to be used or exception is thrown and check for timer is not null
@@ -143,6 +146,8 @@ public class GameActivity extends AppCompatActivity {
 
 
             });
+            showTimer();
+
         } else {
             option1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -236,14 +241,14 @@ public class GameActivity extends AppCompatActivity {
     //creates & starts a 5 sec timer with wrong function onFinish
     private void startTimer() {
         //every second telling you how much time is left
-        timer = new CountDownTimer(5000, 1000) {
+        timer = new CountDownTimer(30000, 1000) {
             public void onTick(long millisUntilFinished) {
-                System.out.println("seconds remaining: " + millisUntilFinished / 1000);
+                timerTextView.setText("Seconds remaining: " + millisUntilFinished / 1000);
             }
 
             //when timer runs out it runs wrong answer & generates new Animal
             public void onFinish() {
-                showPopUpBox("Wrong :/");
+                showPopUpBox("Time is up. Right answer: \n" + animal.getName());
                 Animal animal2 = GetRandomAnimal(items);
                 animal.setName(animal2.getName());
                 img.setImageBitmap(animal2.getImage());
@@ -252,5 +257,8 @@ public class GameActivity extends AppCompatActivity {
         }.start();
     }
 
-
+    private void showTimer(){
+        timerTextView = (TextView) findViewById(R.id.timer_text_view);
+        startTimer();
+    }
 }
