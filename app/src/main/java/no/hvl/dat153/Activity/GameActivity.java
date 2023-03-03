@@ -1,4 +1,4 @@
-package no.hvl.dat153;
+package no.hvl.dat153.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import no.hvl.dat153.Classes.Animal;
+import no.hvl.dat153.R;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -248,10 +251,11 @@ public class GameActivity extends AppCompatActivity {
             //when timer runs out it runs wrong answer & generates new Animal
             public void onFinish() {
                 showPopUpBox("Time is up. Right answer: \n" + animal.getName());
-                Animal animal2 = GetRandomAnimal(items);
-                animal.setName(animal2.getName());
-                img.setImageBitmap(animal2.getImage());
-                startTimer();
+                onBackPressed();
+               // Animal animal2 = GetRandomAnimal(items);
+               // animal.setName(animal2.getName());
+               // img.setImageBitmap(animal2.getImage());
+               // startTimer();
             }
         }.start();
     }
@@ -262,7 +266,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Toast.makeText(this,"Thanksss", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Final score is " + stilling, Toast.LENGTH_SHORT).show();
         finish();
         return;
      }

@@ -1,4 +1,4 @@
-package no.hvl.dat153;
+package no.hvl.dat153.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.List;
+
+import no.hvl.dat153.Classes.Animal;
+import no.hvl.dat153.R;
 
 public class ListAdapter extends ArrayAdapter<Animal> {
 

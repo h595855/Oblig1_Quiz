@@ -1,4 +1,4 @@
-package no.hvl.dat153;
+package no.hvl.dat153.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +16,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+
+import no.hvl.dat153.Classes.Animal;
+import no.hvl.dat153.R;
 
 public class AddPictureActivity extends AppCompatActivity {
 

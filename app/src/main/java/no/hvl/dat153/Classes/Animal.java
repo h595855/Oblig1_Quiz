@@ -1,15 +1,11 @@
-package no.hvl.dat153;
+package no.hvl.dat153.Classes;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.DrawableRes;
-
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
 
 public class Animal implements Parcelable {
 
