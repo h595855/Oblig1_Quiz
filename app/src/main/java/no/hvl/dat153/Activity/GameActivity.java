@@ -1,4 +1,4 @@
-package no.hvl.dat153;
+package no.hvl.dat153.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import no.hvl.dat153.Classes.Animal;
+import no.hvl.dat153.R;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -25,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private Animal animal;
     private ImageView img;
     private CountDownTimer timer;
+    private TextView timerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +49,8 @@ public class GameActivity extends AppCompatActivity {
 
         spill();
 
-
     }
-    //fixes the part when user exits activity timer is canceled 
+    //fixes the part when user exits activity timer is canceled
     @Override
     protected void onPause() {
         //super has to be used or exception is thrown and check for timer is not null
@@ -98,7 +103,7 @@ public class GameActivity extends AppCompatActivity {
                         img.setImageBitmap(animal2.getImage());
                     }
 
-                    resetTimer();
+                    //resetTimer();
                 }
             });
 
@@ -118,7 +123,7 @@ public class GameActivity extends AppCompatActivity {
                         img.setImageBitmap(animal2.getImage());
                     }
 
-                    resetTimer();
+                   // resetTimer();
                 }
             });
 
@@ -138,11 +143,13 @@ public class GameActivity extends AppCompatActivity {
                         img.setImageBitmap(animal2.getImage());
                     }
 
-                    resetTimer();
+                  //  resetTimer();
                 }
 
 
             });
+            showTimer();
+
         } else {
             option1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -236,21 +243,31 @@ public class GameActivity extends AppCompatActivity {
     //creates & starts a 5 sec timer with wrong function onFinish
     private void startTimer() {
         //every second telling you how much time is left
-        timer = new CountDownTimer(5000, 1000) {
+        timer = new CountDownTimer(30000, 1000) {
             public void onTick(long millisUntilFinished) {
-                System.out.println("seconds remaining: " + millisUntilFinished / 1000);
+                timerTextView.setText("Seconds remaining: " + millisUntilFinished / 1000);
             }
 
             //when timer runs out it runs wrong answer & generates new Animal
             public void onFinish() {
-                showPopUpBox("Wrong :/");
-                Animal animal2 = GetRandomAnimal(items);
-                animal.setName(animal2.getName());
-                img.setImageBitmap(animal2.getImage());
-                startTimer();
+                showPopUpBox("Time is up. Right answer: \n" + animal.getName());
+                onBackPressed();
+               // Animal animal2 = GetRandomAnimal(items);
+               // animal.setName(animal2.getName());
+               // img.setImageBitmap(animal2.getImage());
+               // startTimer();
             }
         }.start();
     }
+    private void showTimer(){
+        timerTextView = (TextView) findViewById(R.id.timer_text_view);
+        startTimer();
+    }
 
-
+    @Override
+    public void onBackPressed(){
+        Toast.makeText(this,"Final score is " + stilling, Toast.LENGTH_SHORT).show();
+        finish();
+        return;
+     }
 }

@@ -1,9 +1,8 @@
-package no.hvl.dat153;
-
-import android.content.Context;
-import android.graphics.BitmapFactory;
+package no.hvl.dat153.Adapters;
 
 import java.util.ArrayList;
+
+import no.hvl.dat153.Classes.Animal;
 
 public class AnimalHolder {
 

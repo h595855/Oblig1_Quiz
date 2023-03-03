@@ -1,4 +1,4 @@
-package no.hvl.dat153;
+package no.hvl.dat153.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import no.hvl.dat153.Classes.Animal;
+import no.hvl.dat153.Adapters.ListAdapter;
+import no.hvl.dat153.R;
 
 public class DatabaseActivity extends AppCompatActivity {
 
