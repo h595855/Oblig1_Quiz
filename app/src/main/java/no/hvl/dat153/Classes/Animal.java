@@ -4,14 +4,21 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.room.*;
+
+import androidx.room.Entity;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
+@Entity(tableName = "Animal")
 public class Animal implements Parcelable {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
-
+    @ColumnInfo(name = "name")
     private String name;
+    @ColumnInfo(name = "picture")
     private Bitmap image;
 
     public Animal(String name, Bitmap image) {
@@ -80,3 +87,4 @@ public class Animal implements Parcelable {
         dest.writeByteArray(stream.toByteArray());
     }
 }
+
