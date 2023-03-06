@@ -25,5 +25,5 @@ public interface AnimalDao {
     List<Animal> getAllAnimals();
 
     @Query("SELECT * FROM Animal WHERE id = :id")
-    Animal getUserById(int id);
+    Animal getAnimalById(int id);
 }

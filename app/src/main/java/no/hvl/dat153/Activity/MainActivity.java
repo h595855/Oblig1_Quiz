@@ -9,6 +9,8 @@ import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import no.hvl.dat153.DAO.AnimalDao;
+import no.hvl.dat153.Database.AnimalDatabase;
 import no.hvl.dat153.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Initialize database
+        AnimalDatabase animalDatabase = AnimalDatabase.getDatabase(this);
+        AnimalDao animalDao = animalDatabase.animalDao();
 
         Button startButton = findViewById(R.id.Start);
         startButton.setOnClickListener(new View.OnClickListener() {

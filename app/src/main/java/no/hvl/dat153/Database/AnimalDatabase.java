@@ -18,11 +18,12 @@ import androidx.room.TypeConverters;
 public abstract class AnimalDatabase extends RoomDatabase {
 
     public abstract AnimalDao animalDao();
+
     private static AnimalDatabase instance;
 
-    static AnimalDatabase getDatabase(final Context context){
-        if(instance == null){
-            synchronized (AnimalDatabase.class){
+    public static AnimalDatabase getDatabase(final Context context) {
+        if (instance == null) {
+            synchronized (AnimalDatabase.class) {
                 instance = Room.databaseBuilder(context, AnimalDatabase.class, "DATABASE").build();
             }
         }
