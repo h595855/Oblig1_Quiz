@@ -20,6 +20,8 @@ import java.util.Set;
 
 import no.hvl.dat153.Classes.Animal;
 import no.hvl.dat153.Adapters.ListAdapter;
+import no.hvl.dat153.DAO.AnimalDao;
+import no.hvl.dat153.Database.AnimalDatabase;
 import no.hvl.dat153.R;
 
 public class DatabaseActivity extends AppCompatActivity {
@@ -28,6 +30,10 @@ public class DatabaseActivity extends AppCompatActivity {
     private ListView listView;
     private ListAdapter listAdapter;
     private List<Animal> animalList;
+
+    private AnimalDatabase animalDatabase;
+
+    private AnimalDao animalDao;
 
     private ActivityResultLauncher<Intent> AddPictureActivity = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -54,6 +60,7 @@ public class DatabaseActivity extends AppCompatActivity {
         animalList = new ArrayList<>();
 
         //creating & adding initial animals to the list
+
         Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
         Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
         Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
@@ -79,5 +86,11 @@ public class DatabaseActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+        return;
     }
 }

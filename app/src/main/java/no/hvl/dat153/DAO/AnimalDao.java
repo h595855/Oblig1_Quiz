@@ -22,7 +22,7 @@ public interface AnimalDao {
     void delete(Animal animal);
 
     @Query("SELECT * FROM Animal")
-    List<Animal> getAllUsers();
+    List<Animal> getAllAnimals();
 
     @Query("SELECT * FROM Animal WHERE id = :id")
     Animal getUserById(int id);
