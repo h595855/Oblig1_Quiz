@@ -18,10 +18,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import no.hvl.dat153.Classes.Animal;
 import no.hvl.dat153.Adapters.ListAdapter;
-import no.hvl.dat153.DAO.AnimalDao;
-import no.hvl.dat153.Database.AnimalDatabase;
+import no.hvl.dat153.Classes.Animal;
+import no.hvl.dat153.Database.AnimalDao;
+import no.hvl.dat153.Database.AnimalRepository;
 import no.hvl.dat153.R;
 
 public class DatabaseActivity extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class DatabaseActivity extends AppCompatActivity {
     private ListView listView;
     private ListAdapter listAdapter;
     private List<Animal> animalList;
-    private AnimalDatabase animalDatabase;
+    public AnimalRepository repository;
     private AnimalDao animalDao;
 
     private ActivityResultLauncher<Intent> AddPictureActivity = registerForActivityResult(
@@ -53,27 +53,24 @@ public class DatabaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_databasectivity);
 
+        animalList = new ArrayList<>();
         //getting listview
         listView = findViewById(R.id.list_view);
 
         // Initialize the AnimalDatabase and AnimalDao
-        animalDatabase = AnimalDatabase.getDatabase(this);
-        animalDao = animalDatabase.animalDao();
+        repository = new AnimalRepository(this.getApplication());
+
+        AnimalRepository repo = new AnimalRepository(getApplication());
 
         Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
         Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
         Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
 
-        animalDao.insert(a1);
-        animalDao.insert(a2);
-        animalDao.insert(a3);
-
-        animalList = animalDao.getAllAnimals();
-
-        //adding to list
+        /*adding to list
         animalList.add(a1);
         animalList.add(a2);
         animalList.add(a3);
+        */
 
         //creating listview of images
         listAdapter = new ListAdapter(this, R.layout.animalitem, animalList);
