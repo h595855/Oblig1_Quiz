@@ -5,7 +5,6 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
@@ -15,9 +14,6 @@ import no.hvl.dat153.Classes.Animal;
 public interface AnimalDao {
     @Insert
     void insert(Animal animal);
-
-    @Update
-    void update(Animal animal);
 
     @Insert
     void insertAll(Animal... animals);

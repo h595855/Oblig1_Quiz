@@ -1,6 +1,7 @@
 package no.hvl.dat153.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +10,14 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.ByteArrayOutputStream;
 
 import no.hvl.dat153.Classes.Animal;
-import no.hvl.dat153.Database.AnimalDatabase;
+import no.hvl.dat153.Database.AnimalRepository;
 import no.hvl.dat153.R;
+import no.hvl.dat153.ViewModels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,32 +30,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initialize database
-        AnimalDatabase animalDatabase = AnimalDatabase.getDatabase(getApplicationContext());
-
-        // Create ExecutorService with a single background thread
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        // Insert animals in the database using executorService
-        executorService.execute(() -> {
-            Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
-            Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
-            Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
-
-            animalDatabase.animalDao().insert(a1);
-            animalDatabase.animalDao().insert(a2);
-            animalDatabase.animalDao().insert(a3);
-        });
-
-        // Shutdown the executorService after the database operations are complete
-        executorService.shutdown();
-
+        AnimalRepository animalRepository = new AnimalRepository(getApplication());
 
         Button startButton = findViewById(R.id.Start);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 mSwitch = findViewById(R.id.hardMode);
                 isCheckedo = mSwitch.isChecked();
                 //checking if the switch is put on
@@ -79,5 +61,42 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel.getAllAnimals().observe(this,
+                animals -> {
+                    if(animals.size() < 3){
+                        addEntries();
+                    }
+                }
+                );
+
+    }
+
+    MainViewModel mainViewModel;
+
+    public void addEntries(){
+        //Added Among
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.among);
+        ByteArrayOutputStream Stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, Stream);
+        byte[] amongByteArray = Stream.toByteArray();
+        mainViewModel.insert(new Animal("among", amongByteArray));
+
+        //Added Among
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cat);
+        Stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, Stream);
+        byte[] catByteArray = Stream.toByteArray();
+        mainViewModel.insert(new Animal("cat", catByteArray));
+
+        //Added Among
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dog);
+        Stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, Stream);
+        byte[] dogByteArray = Stream.toByteArray();
+        mainViewModel.insert(new Animal("dog", dogByteArray));
+
+
     }
 }

@@ -1,21 +1,11 @@
 package no.hvl.dat153.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.IOException;
 
 import no.hvl.dat153.Classes.Animal;
 import no.hvl.dat153.R;
@@ -37,6 +27,7 @@ public class AddPictureActivity extends AppCompatActivity {
     // the activity result code
     int SELECT_PICTURE = 200;
     //pics image from the gallery/filesystem
+    /*
     ActivityResultLauncher<Intent> addPictureActivity
             = registerForActivityResult(
             new ActivityResultContracts
@@ -47,7 +38,7 @@ public class AddPictureActivity extends AppCompatActivity {
             /*
             can do anything with the object retrieved from previous
             activity from here
-             */
+
                     if (data != null && data.getData() != null) {
                         //retrieving the uri of the chosen image
                         Uri selectedImageUri = data.getData();
@@ -63,6 +54,7 @@ public class AddPictureActivity extends AppCompatActivity {
                     }
                 }
             });
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +69,7 @@ public class AddPictureActivity extends AppCompatActivity {
         /*
         handle the Choose Image button to trigger
         the image chooser function
-         */
+
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +83,8 @@ public class AddPictureActivity extends AppCompatActivity {
                 returnResult();
             }
         });
+        */
+
     }
 
     /*
@@ -105,9 +99,9 @@ public class AddPictureActivity extends AppCompatActivity {
         i.setAction(Intent.ACTION_GET_CONTENT);
 
         //launch the activity to add picture
-        addPictureActivity.launch(i);
+        //addPictureActivity.launch(i);
     }
-
+    /*
     private void returnResult() {
         Intent resultIntent = new Intent();
         //setting the name from inputfield
@@ -118,7 +112,8 @@ public class AddPictureActivity extends AppCompatActivity {
         resultIntent.putExtra("animal", animal);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
-    }
+        }
+     */
 
 
 }//class

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
@@ -20,10 +21,10 @@ import no.hvl.dat153.R;
 public class ListAdapter extends ArrayAdapter<Animal> {
 
     private Context context;
-    private List<Animal> listItems;
+    private LiveData<List<Animal>> listItems;
 
-    public ListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Animal> objects) {
-        super(context, resource, objects);
+    public ListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull LiveData<List<Animal>> objects) {
+        super(context, resource, objects.getValue());
         this.context = context;
         this.listItems = objects;
     }
@@ -37,10 +38,11 @@ public class ListAdapter extends ArrayAdapter<Animal> {
         ImageView imageView = view.findViewById(R.id.image_view);
         TextView textView = view.findViewById(R.id.text_view);
 
-        Animal listItem = listItems.get(position);
-        imageView.setImageBitmap(listItem.getImage());
+        Animal listItem = getItem(position);
+       // imageView.setImageBitmap(listItem.getImage());
         textView.setText(listItem.getName());
 
         return view;
     }
+
 }

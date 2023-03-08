@@ -2,7 +2,6 @@ package no.hvl.dat153.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -10,17 +9,16 @@ import android.widget.ListView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import no.hvl.dat153.Adapters.ListAdapter;
 import no.hvl.dat153.Classes.Animal;
-import no.hvl.dat153.Database.AnimalDao;
 import no.hvl.dat153.Database.AnimalRepository;
 import no.hvl.dat153.R;
 
@@ -29,9 +27,8 @@ public class DatabaseActivity extends AppCompatActivity {
     Set<Animal> images = new HashSet<Animal>();
     private ListView listView;
     private ListAdapter listAdapter;
-    private List<Animal> animalList;
+    private LiveData<List<Animal>> animalList;
     public AnimalRepository repository;
-    private AnimalDao animalDao;
 
     private ActivityResultLauncher<Intent> AddPictureActivity = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -40,10 +37,7 @@ public class DatabaseActivity extends AppCompatActivity {
                     Intent data = result.getData();
                     Bundle extras = data.getExtras();
                     Animal newAnimal = extras.getParcelable("animal", Animal.class);
-                    animalList.add(newAnimal);
-                    //updating the list
-                    listAdapter = new ListAdapter(this, R.layout.animalitem, animalList);
-                    listView.setAdapter(listAdapter);
+                    repository.insert(newAnimal);
                 }
             });
 
@@ -53,29 +47,21 @@ public class DatabaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_databasectivity);
 
-        animalList = new ArrayList<>();
+        repository = new AnimalRepository(this.getApplication());
+        animalList = repository.getAllAnimals();
+
         //getting listview
         listView = findViewById(R.id.list_view);
-
-        // Initialize the AnimalDatabase and AnimalDao
-        repository = new AnimalRepository(this.getApplication());
-
-        AnimalRepository repo = new AnimalRepository(getApplication());
-
-        Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
-        Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
-        Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
-
-        /*adding to list
-        animalList.add(a1);
-        animalList.add(a2);
-        animalList.add(a3);
-        */
 
         //creating listview of images
         listAdapter = new ListAdapter(this, R.layout.animalitem, animalList);
         listView.setAdapter(listAdapter);
 
+        animalList.observe(this, animals -> {
+            listAdapter.clear();
+            listAdapter.addAll(animals);
+            listAdapter.notifyDataSetChanged();
+        });
 
         FloatingActionButton floatAdd = (FloatingActionButton) findViewById(R.id.addPicture);
 
@@ -85,7 +71,6 @@ public class DatabaseActivity extends AppCompatActivity {
                 //making second activity to get update add to list
                 Intent intent = new Intent(DatabaseActivity.this, AddPictureActivity.class);
                 AddPictureActivity.launch(intent);
-
             }
         });
     }

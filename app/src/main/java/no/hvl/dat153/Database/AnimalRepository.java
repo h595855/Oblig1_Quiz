@@ -29,24 +29,25 @@ public class AnimalRepository {
     }
 
     public void insert(Animal animal){
-        InsertAsyncTask task = new InsertAsyncTask(animalDao);
+        InsertAnimalAsyncTask task = new InsertAnimalAsyncTask(animalDao);
             task.execute(animal);
     }
 
     public void delete(Animal animal){
-        InsertAsyncTask task = new InsertAsyncTask(animalDao);
+        InsertAnimalAsyncTask task = new InsertAnimalAsyncTask(animalDao);
         task.execute(animal);
     }
 
+    private void asyncFinished(List<Animal> results){
+        searchResults.setValue(results);
+    }
 
 
-
-
-    private static class InsertAsyncTask extends AsyncTask<Animal, Void, Void> {
+    private static class InsertAnimalAsyncTask extends AsyncTask<Animal, Void, Void> {
 
     private final AnimalDao asyncTaskDao;
 
-    InsertAsyncTask(AnimalDao dao) {
+    InsertAnimalAsyncTask(AnimalDao dao) {
         asyncTaskDao = dao;
     }
 

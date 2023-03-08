@@ -1,22 +1,13 @@
 package no.hvl.dat153.Activity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import no.hvl.dat153.Classes.Animal;
 import no.hvl.dat153.R;
@@ -37,17 +28,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
-        Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
-        Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
-
-        items = new ArrayList<Animal>();
-
-        items.add(a1);
-        items.add(a2);
-        items.add(a3);
-
-        spill();
+       // spill();
 
     }
     //fixes the part when user exits activity timer is canceled
@@ -61,7 +42,7 @@ public class GameActivity extends AppCompatActivity {
             timer = null;
         }
     }
-
+    /*
     private void spill() {
 
         animal = GetRandomAnimal(items);
@@ -270,4 +251,6 @@ public class GameActivity extends AppCompatActivity {
         finish();
         return;
      }
+     */
+
 }
