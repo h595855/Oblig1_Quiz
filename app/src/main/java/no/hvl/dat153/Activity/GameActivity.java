@@ -1,34 +1,49 @@
 package no.hvl.dat153.Activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import no.hvl.dat153.Classes.Animal;
 import no.hvl.dat153.R;
+import no.hvl.dat153.ViewModels.QuizViewModel;
 
 public class GameActivity extends AppCompatActivity {
 
     //define initials
     int stilling = 0;
     private boolean timerEnabled;
-    private ArrayList<Animal> items;
+    private LiveData<List<Animal>> items;
     private Animal animal;
     private ImageView img;
     private CountDownTimer timer;
     private TextView timerTextView;
+    private QuizViewModel quizViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-       // spill();
+        quizViewModel = new QuizViewModel(getApplication());
+        items = quizViewModel.getAllAnimals();
+
+        // spill();
 
     }
     //fixes the part when user exits activity timer is canceled
@@ -42,15 +57,15 @@ public class GameActivity extends AppCompatActivity {
             timer = null;
         }
     }
-    /*
+
     private void spill() {
+
 
         animal = GetRandomAnimal(items);
 
         img = findViewById(R.id.image);
 
         //Set random image from random chosen animal
-        img.setImageBitmap(animal.getImage());
 
         Button option1 = findViewById(R.id.alt1);
         Button option2 = findViewById(R.id.alt2);
@@ -75,13 +90,13 @@ public class GameActivity extends AppCompatActivity {
                         showPopUpBox("Correct! " + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
 
                     } else {
                         showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     }
 
                     //resetTimer();
@@ -96,12 +111,12 @@ public class GameActivity extends AppCompatActivity {
                         showPopUpBox("Correct! " + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     } else {
                         showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     }
 
                    // resetTimer();
@@ -116,12 +131,12 @@ public class GameActivity extends AppCompatActivity {
                         showPopUpBox("Correct! " + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     } else {
                         showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     }
 
                   //  resetTimer();
@@ -140,12 +155,12 @@ public class GameActivity extends AppCompatActivity {
                         showPopUpBox("Correct! " + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     } else {
                         showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     }
                 }
             });
@@ -158,12 +173,12 @@ public class GameActivity extends AppCompatActivity {
                         showPopUpBox("Correct! " + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     } else {
                         showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     }
                 }
             });
@@ -176,12 +191,12 @@ public class GameActivity extends AppCompatActivity {
                         showPopUpBox("Correct! " + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     } else {
                         showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
                         Animal animal2 = GetRandomAnimal(items);
                         animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+                        img.setImageBitmap(byteArrayToBitmap(animal2.getImage()));
                     }
                 }
 
@@ -190,15 +205,21 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    private Animal GetRandomAnimal(List<Animal> items) {
+    public static Bitmap byteArrayToBitmap(byte[] byteArray) {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
+
+    private Animal GetRandomAnimal(LiveData<List<Animal>> items) {
         Random random = new Random();
-        if (items.size() > 0) {
-            int index = random.nextInt(items.size());
-            return items.get(index);
+        List<Animal> animalList = items.getValue();
+        if (animalList != null && animalList.size() > 0) {
+            int index = random.nextInt(animalList.size());
+            return animalList.get(index);
         } else {
-            throw new IllegalArgumentException("List must contain at least one item" + items.size());
+            throw new IllegalArgumentException("List must contain at least one item" + items.getValue().size());
         }
     }
+
 
 
     private void showPopUpBox(String message) {
@@ -251,6 +272,6 @@ public class GameActivity extends AppCompatActivity {
         finish();
         return;
      }
-     */
+
 
 }
