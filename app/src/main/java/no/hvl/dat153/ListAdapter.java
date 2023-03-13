@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
+import no.hvl.dat153.data.Animal;
+
 public class ListAdapter extends ArrayAdapter<Animal> {
 
     private Context context;

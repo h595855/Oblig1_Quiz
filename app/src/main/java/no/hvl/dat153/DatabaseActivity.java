@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import no.hvl.dat153.data.Animal;
+
 public class DatabaseActivity extends AppCompatActivity {
 
     Set<Animal> images = new HashSet<Animal>();

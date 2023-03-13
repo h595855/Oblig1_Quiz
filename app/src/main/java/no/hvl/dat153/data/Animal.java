@@ -1,18 +1,18 @@
-package no.hvl.dat153;
+package no.hvl.dat153.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.DrawableRes;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
 
+@Entity
 public class Animal implements Parcelable {
-
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String name;

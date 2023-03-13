@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 
+import no.hvl.dat153.data.Animal;
+
 public class AddPictureActivity extends AppCompatActivity {
 
     //preview of the selected image
