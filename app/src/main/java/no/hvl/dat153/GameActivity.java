@@ -2,6 +2,7 @@ package no.hvl.dat153;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -11,40 +12,41 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import no.hvl.dat153.data.Animal;
+import no.hvl.dat153.data.AnimalViewModel;
 
 public class GameActivity extends AppCompatActivity {
-/*
+
     //define initials
     int stilling = 0;
-    private boolean timerEnabled;
-    private ArrayList<Animal> items;
     private Animal animal;
     private ImageView img;
     private CountDownTimer timer;
+    private boolean timerEnabled;
+    private List<Animal> animalList;
+    private AnimalViewModel animalViewModel;
+
+    private Button buttonOption1;
+    private Button buttonOption2;
+    private Button buttonOption3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
-        Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
-        Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
+        animalViewModel = new ViewModelProvider(this).get(AnimalViewModel.class);
 
-        items = new ArrayList<Animal>();
-
-        items.add(a1);
-        items.add(a2);
-        items.add(a3);
-
-        spill();
-
+        animalViewModel.getAllAnimals().observe(this, animals -> {
+            animalList = animals;
+            spill();
+        });
 
     }
     //fixes the part when user exits activity timer is canceled 
@@ -61,148 +63,44 @@ public class GameActivity extends AppCompatActivity {
 
     private void spill() {
 
-        animal = GetRandomAnimal(items);
+        animal = GetRandomAnimal(animalList);
 
         img = findViewById(R.id.image);
 
-        //Set random image from random chosen animal
-        img.setImageBitmap(animal.getImage());
+        buttonOption1 = findViewById(R.id.alt1);
+        buttonOption2 = findViewById(R.id.alt2);
+        buttonOption3 = findViewById(R.id.alt3);
 
-        Button option1 = findViewById(R.id.alt1);
-        Button option2 = findViewById(R.id.alt2);
-        Button option3 = findViewById(R.id.alt3);
-
-        option1.setText("Cat");
-        option2.setText("dog");
-        option3.setText("among");
+        newQuestion();
 
         Intent intent = getIntent();
         timerEnabled = intent.getBooleanExtra("timerEnabled", false);
         //checking if the switch worked
         System.out.println(timerEnabled);
 
-        if (timerEnabled) {
-            startTimer();
-            option1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (option1.getText() == animal.getName()) {
-                        stilling++;
-                        showPopUpBox("Correct! " + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
+        View.OnClickListener buttonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button = (Button) v;
+                if (button.getText().equals(animal.getName())) {
+                    stilling++;
+                    showPopUpBox("Correct! " + "\nPoints: " + stilling);
+                } else {
+                    showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
+                }
+                newQuestion();
 
-                    } else {
-                        showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    }
-
+                if (timerEnabled) {
                     resetTimer();
                 }
-            });
+            }
+        };
 
-            option2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (option2.getText() == animal.getName()) {
-                        stilling++;
-                        showPopUpBox("Correct! " + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    } else {
-                        showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    }
+        buttonOption1.setOnClickListener(buttonClickListener);
+        buttonOption2.setOnClickListener(buttonClickListener);
+        buttonOption3.setOnClickListener(buttonClickListener);
 
-                    resetTimer();
-                }
-            });
-
-            option3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (option3.getText() == animal.getName()) {
-                        stilling++;
-                        showPopUpBox("Correct! " + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    } else {
-                        showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    }
-
-                    resetTimer();
-                }
-
-
-            });
-        } else {
-            option1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (option1.getText() == animal.getName()) {
-                        stilling++;
-                        showPopUpBox("Correct! " + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    } else {
-                        showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    }
-                }
-            });
-
-            option2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (option2.getText() == animal.getName()) {
-                        stilling++;
-                        showPopUpBox("Correct! " + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    } else {
-                        showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    }
-                }
-            });
-
-            option3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (option3.getText() == animal.getName()) {
-                        stilling++;
-                        showPopUpBox("Correct! " + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    } else {
-                        showPopUpBox("Wrong. Right answer was: " + animal.getName() + "\nPoints: " + stilling);
-                        Animal animal2 = GetRandomAnimal(items);
-                        animal.setName(animal2.getName());
-                        img.setImageBitmap(animal2.getImage());
-                    }
-                }
-
-            });
-        }
-
-    }
+    }//spill
 
     private Animal GetRandomAnimal(List<Animal> items) {
         Random random = new Random();
@@ -212,6 +110,22 @@ public class GameActivity extends AppCompatActivity {
         } else {
             throw new IllegalArgumentException("List must contain at least one item" + items.size());
         }
+    }
+
+    private List<Animal> getRandomAnimals(List<Animal> items) {
+        if (items.size() < 3) {
+            throw new IllegalArgumentException("List must contain at least three items");
+        }
+
+        List<Animal> randomAnimals = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < 3; i++) {
+            int index = random.nextInt(items.size());
+            randomAnimals.add(items.get(index));
+        }
+
+        return randomAnimals;
     }
 
 
@@ -235,6 +149,19 @@ public class GameActivity extends AppCompatActivity {
         startTimer();
     }
 
+    private void newQuestion (){
+        List<Animal> randomAnimals = getRandomAnimals(animalList);
+        buttonOption1.setText(randomAnimals.get(0).getName());
+        buttonOption2.setText(randomAnimals.get(1).getName());
+        buttonOption3.setText(randomAnimals.get(2).getName());
+        Animal randomAnimal = GetRandomAnimal(randomAnimals);
+
+        animal = randomAnimal;
+        byte[] imageByteArray = animal.getImage();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+        img.setImageBitmap(bitmap);
+    }
+
     //creates & starts a 5 sec timer with wrong function onFinish
     private void startTimer() {
         //every second telling you how much time is left
@@ -246,13 +173,10 @@ public class GameActivity extends AppCompatActivity {
             //when timer runs out it runs wrong answer & generates new Animal
             public void onFinish() {
                 showPopUpBox("Wrong :/");
-                Animal animal2 = GetRandomAnimal(items);
-                animal.setName(animal2.getName());
-                img.setImageBitmap(animal2.getImage());
+                newQuestion ();
                 startTimer();
             }
         }.start();
     }
-*/
 
 }
