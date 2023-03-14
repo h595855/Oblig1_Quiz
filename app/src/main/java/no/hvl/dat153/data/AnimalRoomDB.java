@@ -6,10 +6,16 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = {Animal.class}, version = 1)
 public abstract class AnimalRoomDB extends RoomDatabase {
 
-    private static AnimalRoomDB INSTANCE;
+    private static volatile AnimalRoomDB INSTANCE;
+
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(4);
 
     public static AnimalRoomDB getDatabase(final Context context) {
         if (INSTANCE == null) {

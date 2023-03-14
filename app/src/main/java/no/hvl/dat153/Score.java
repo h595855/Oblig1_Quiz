@@ -1,4 +1,4 @@
-package no.hvl.dat153;
+package no.hvl.dat153.data;
 
 public class Score {
 

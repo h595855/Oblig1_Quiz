@@ -19,7 +19,7 @@ import java.util.Random;
 import no.hvl.dat153.data.Animal;
 
 public class GameActivity extends AppCompatActivity {
-
+/*
     //define initials
     int stilling = 0;
     private boolean timerEnabled;
@@ -253,6 +253,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }.start();
     }
-
+*/
 
 }
