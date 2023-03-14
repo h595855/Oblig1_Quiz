@@ -1,6 +1,8 @@
 package no.hvl.dat153;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +39,8 @@ public class ListAdapter extends ArrayAdapter<Animal> {
         TextView textView = view.findViewById(R.id.text_view);
 
         Animal listItem = listItems.get(position);
-        imageView.setImageBitmap(listItem.getImage());
+        Bitmap bitmap = BitmapFactory.decodeByteArray(listItem.getImage(), 0, listItem.getImage().length);
+        imageView.setImageBitmap(bitmap);
         textView.setText(listItem.getName());
 
         return view;

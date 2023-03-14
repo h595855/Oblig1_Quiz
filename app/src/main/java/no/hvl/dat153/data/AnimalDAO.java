@@ -10,10 +10,10 @@ import java.util.List;
 
 @Dao
 public interface AnimalDAO {
-    @Query("SELECT * FROM animal")
+    @Query("SELECT * FROM animals")
     LiveData<List<Animal>> getAllAnimals();
 
-    @Query("SELECT * FROM animal WHERE id = :id")
+    @Query("SELECT * FROM animals WHERE id = :id")
     LiveData<Animal> getAnimalById(int id);
 
     @Insert

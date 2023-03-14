@@ -14,10 +14,13 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import no.hvl.dat153.data.Animal;
+import no.hvl.dat153.data.AnimalViewModel;
 
 public class AddPictureActivity extends AppCompatActivity {
 
@@ -32,6 +35,8 @@ public class AddPictureActivity extends AppCompatActivity {
 
     Animal animal = null;
 
+    private AnimalViewModel animalViewModel;
+
     // constant to compare
     // the activity result code
     int SELECT_PICTURE = 200;
@@ -43,19 +48,21 @@ public class AddPictureActivity extends AppCompatActivity {
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
-            /*
-            can do anything with the object retrieved from previous
-            activity from here
-             */
+                    /*
+                    can do anything with the object retrieved from previous
+                    activity from here
+                     */
                     if (data != null && data.getData() != null) {
                         //retrieving the uri of the chosen image
                         Uri selectedImageUri = data.getData();
                         ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), selectedImageUri);
                         try {
-                            //creates new Animal with source object that needs uri that creates Bitmap
+                            //creates new Animal with source object that needs uri that creates byte[] from Bitmap
                             Bitmap selectedImageBitmap = ImageDecoder.decodeBitmap(source);
                             imageView.setImageBitmap(selectedImageBitmap);
-                            animal = new Animal("among", selectedImageBitmap);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                            animal = new Animal("among", stream.toByteArray());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -73,6 +80,9 @@ public class AddPictureActivity extends AppCompatActivity {
         uploadButton = findViewById(R.id.uploadButton);
         submitButton = findViewById(R.id.submitButton);
 
+        // Get the shared instance of the ViewModel
+        animalViewModel = new ViewModelProvider(this).get(AnimalViewModel.class);
+        System.err.println(animalViewModel.toString());
         /*
         handle the Choose Image button to trigger
         the image chooser function
@@ -90,7 +100,8 @@ public class AddPictureActivity extends AppCompatActivity {
                 returnResult();
             }
         });
-    }
+
+    }//onCreate
 
     /*
     function is triggered when button is clicked
@@ -109,16 +120,19 @@ public class AddPictureActivity extends AppCompatActivity {
 
     private void returnResult() {
         Intent resultIntent = new Intent();
-        //setting the name from inputfield
+        //setting the name from inputField
         EditText editText = findViewById(R.id.animalName);
         String name = editText.getText().toString();
         animal.setName(name);
-        //animal class has to implement serializable or parcelable
-        resultIntent.putExtra("animal", animal);
+
+        if(animal != null){
+            System.out.println("ANIMAL PRESENT");
+            animalViewModel.insertAnimal(animal);
+        }
+
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
-
 
 }//class
 

@@ -1,46 +1,30 @@
 package no.hvl.dat153;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import no.hvl.dat153.data.Animal;
+import no.hvl.dat153.data.AnimalListAdapter;
+import no.hvl.dat153.data.AnimalViewModel;
 
 public class DatabaseActivity extends AppCompatActivity {
 
-    Set<Animal> images = new HashSet<Animal>();
-    private ListView listView;
-    private ListAdapter listAdapter;
-    private List<Animal> animalList;
-
-    private ActivityResultLauncher<Intent> AddPictureActivity = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    Intent data = result.getData();
-                    Bundle extras = data.getExtras();
-                    Animal newAnimal = extras.getParcelable("animal", Animal.class);
-                    animalList.add(newAnimal);
-                    //updating the list
-                    listAdapter = new ListAdapter(this, R.layout.animalitem, animalList);
-                    listView.setAdapter(listAdapter);
-                }
-            });
-
+    private AnimalViewModel animalViewModel;
+    private RecyclerView recyclerView;
+    private AnimalListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +32,20 @@ public class DatabaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_databasectivity);
 
         //getting listview
-        listView = findViewById(R.id.list_view);
-        animalList = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerview);
+        adapter = new AnimalListAdapter(new ArrayList<>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
-        //creating & adding initial animals to the list
-        Animal a1 = new Animal("Cat", BitmapFactory.decodeResource(this.getResources(), R.drawable.cat));
-        Animal a2 = new Animal("dog", BitmapFactory.decodeResource(this.getResources(), R.drawable.dog));
-        Animal a3 = new Animal("among", BitmapFactory.decodeResource(this.getResources(), R.drawable.among));
+        //init viewModel
+        animalViewModel = new ViewModelProvider(this).get(AnimalViewModel.class);
+        System.err.println(animalViewModel.toString());
 
-        //adding to list
-        animalList.add(a1);
-        animalList.add(a2);
-        animalList.add(a3);
-
-        //creating listview of images
-        listAdapter = new ListAdapter(this, R.layout.animalitem, animalList);
-        listView.setAdapter(listAdapter);
-
+        animalViewModel.getAllAnimals().observe(this, animals -> {
+            // Update the adapter with the new animal data
+            adapter.setAnimalList(animals);
+            adapter.notifyDataSetChanged();
+        });
 
         FloatingActionButton floatAdd = (FloatingActionButton) findViewById(R.id.addPicture);
 
@@ -73,9 +54,10 @@ public class DatabaseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //making second activity to get update add to list
                 Intent intent = new Intent(DatabaseActivity.this, AddPictureActivity.class);
-                AddPictureActivity.launch(intent);
-
+                //AddPictureActivity.launch(intent);
+                startActivity(intent);
             }
         });
-    }
-}
+    }//onCreate
+
+}//class
