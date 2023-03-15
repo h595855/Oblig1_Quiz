@@ -1,4 +1,4 @@
-package no.hvl.dat153;
+package no.hvl.dat153.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import no.hvl.dat153.R;
 import no.hvl.dat153.data.Animal;
 import no.hvl.dat153.data.AnimalViewModel;
 

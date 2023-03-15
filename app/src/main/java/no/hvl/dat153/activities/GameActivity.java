@@ -1,7 +1,6 @@
-package no.hvl.dat153;
+package no.hvl.dat153.activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,15 +8,20 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import no.hvl.dat153.R;
 import no.hvl.dat153.data.Animal;
 import no.hvl.dat153.data.AnimalViewModel;
 
@@ -29,6 +33,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView img;
     private CountDownTimer timer;
     private boolean timerEnabled;
+    private TextView timerTextView;
     private List<Animal> animalList;
     private AnimalViewModel animalViewModel;
 
@@ -36,10 +41,17 @@ public class GameActivity extends AppCompatActivity {
     private Button buttonOption2;
     private Button buttonOption3;
 
+    private ExtendedFloatingActionButton exitGameButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        exitGameButton = findViewById(R.id.exitGame);
+        exitGameButton.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         animalViewModel = new ViewModelProvider(this).get(AnimalViewModel.class);
 
@@ -63,6 +75,8 @@ public class GameActivity extends AppCompatActivity {
 
     private void spill() {
 
+        timerEnabled = getIntent().getBooleanExtra("timerEnabled", false);
+
         animal = GetRandomAnimal(animalList);
 
         img = findViewById(R.id.image);
@@ -72,11 +86,10 @@ public class GameActivity extends AppCompatActivity {
         buttonOption3 = findViewById(R.id.alt3);
 
         newQuestion();
-
-        Intent intent = getIntent();
-        timerEnabled = intent.getBooleanExtra("timerEnabled", false);
-        //checking if the switch worked
-        System.out.println(timerEnabled);
+        if(timerEnabled){
+            timerTextView = findViewById(R.id.secondsRemaining);
+            startTimer();
+        }
 
         View.OnClickListener buttonClickListener = new View.OnClickListener() {
             @Override
@@ -120,9 +133,12 @@ public class GameActivity extends AppCompatActivity {
         List<Animal> randomAnimals = new ArrayList<>();
         Random random = new Random();
 
-        for (int i = 0; i < 3; i++) {
+        while (randomAnimals.size() < 3) {
             int index = random.nextInt(items.size());
-            randomAnimals.add(items.get(index));
+            Animal animal = items.get(index);
+            if (!randomAnimals.contains(animal)) {
+                randomAnimals.add(animal);
+            }
         }
 
         return randomAnimals;
@@ -167,7 +183,7 @@ public class GameActivity extends AppCompatActivity {
         //every second telling you how much time is left
         timer = new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
-                System.out.println("seconds remaining: " + millisUntilFinished / 1000);
+                timerTextView.setText("Seconds remaining: " + millisUntilFinished / 1000);
             }
 
             //when timer runs out it runs wrong answer & generates new Animal
@@ -177,6 +193,13 @@ public class GameActivity extends AppCompatActivity {
                 startTimer();
             }
         }.start();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Toast.makeText(this,"Final score is " + stilling, Toast.LENGTH_SHORT).show();
+        finish();
+        return;
     }
 
 }

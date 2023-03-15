@@ -1,4 +1,4 @@
-package no.hvl.dat153;
+package no.hvl.dat153.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import no.hvl.dat153.R;
 
 public class MainActivity extends AppCompatActivity {
 
