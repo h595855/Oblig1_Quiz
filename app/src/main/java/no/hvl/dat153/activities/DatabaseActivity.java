@@ -6,16 +6,20 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import no.hvl.dat153.R;
 import no.hvl.dat153.adapters.AnimalListAdapter;
 import no.hvl.dat153.data.AnimalViewModel;
+import no.hvl.dat153.util.SwipeToDeleteCallback;
 
 public class DatabaseActivity extends AppCompatActivity {
 
@@ -23,10 +27,30 @@ public class DatabaseActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AnimalListAdapter adapter;
 
+    private ExtendedFloatingActionButton sortAnimalsDatabaseButton;
+    private ExtendedFloatingActionButton exitDatabaseButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_databasectivity);
+
+        sortAnimalsDatabaseButton = findViewById(R.id.sortAnimalsDatabase);
+        sortAnimalsDatabaseButton.setOnClickListener(v -> {
+            animalViewModel.getAllAnimals().observe(this, animals -> {
+                // Sort the animal list alphabetically by name
+                Collections.sort(animals, (a1, a2) -> a1.getName().compareToIgnoreCase(a2.getName()));
+
+                // Update the adapter with the new animal data
+                adapter.setAnimalList(animals);
+                adapter.notifyDataSetChanged();
+            });
+        });
+
+        exitDatabaseButton = findViewById(R.id.exitDatabase);
+        exitDatabaseButton.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         //getting listview
         recyclerView = findViewById(R.id.recyclerview);
@@ -44,9 +68,14 @@ public class DatabaseActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         });
 
-        FloatingActionButton floatAdd = (FloatingActionButton) findViewById(R.id.addPicture);
+        //delete onSwipe helpClassCallback
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapter, animalViewModel));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        floatAdd.setOnClickListener(new View.OnClickListener() {
+        //
+        FloatingActionButton addAnimalToDatabaseButton = (FloatingActionButton) findViewById(R.id.addPicture);
+
+        addAnimalToDatabaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //making second activity to get update add to list
@@ -56,5 +85,10 @@ public class DatabaseActivity extends AppCompatActivity {
             }
         });
     }//onCreate
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 
 }//class

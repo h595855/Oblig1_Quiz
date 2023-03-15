@@ -7,23 +7,75 @@
     tools:context=".activities.DatabaseActivity">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="400dp"
+        android:layout_height="580dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.377" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="232dp"
+        android:layout_height="38dp"
+        android:text="Current database"
+        android:textAlignment="center"
+        android:textColor="#1B6AA8"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.842" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/exitDatabase"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="9dp"
+        android:text="EXIT"
+        app:backgroundTint="#D51414"
+        app:icon="?attr/actionModeCloseDrawable"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview"
+        app:layout_constraintVertical_bias="0.137" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/sortAnimalsDatabase"
+        android:layout_width="120dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="9dp"
+        android:text="SORT"
+        app:backgroundTint="#03A9F4"
+        app:icon="@drawable/sort_icon"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addPicture"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toEndOf="@+id/exitDatabase"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview"
+        app:layout_constraintVertical_bias="0.137" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addPicture"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         app:backgroundTint="#00FFB4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.912"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview"
+        app:layout_constraintVertical_bias="0.137"
         app:srcCompat="@android:drawable/ic_input_add" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

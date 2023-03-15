@@ -34,7 +34,7 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.An
     @NonNull
     @Override
     public AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.animalitem, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.animal_layout_listitem, parent, false);
         return new AnimalViewHolder(view);
     }
 
@@ -61,7 +61,7 @@ public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.An
         public AnimalViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image_view);
-            nameTextView = itemView.findViewById(R.id.text_view);
+            nameTextView = itemView.findViewById(R.id.name_view);
         }
     }
 }
