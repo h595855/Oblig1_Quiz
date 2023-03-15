@@ -1,7 +1,6 @@
-package no.hvl.dat153;
+package no.hvl.dat153.activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import no.hvl.dat153.R;
 import no.hvl.dat153.data.Animal;
 import no.hvl.dat153.data.AnimalViewModel;
 
@@ -72,11 +72,9 @@ public class GameActivity extends AppCompatActivity {
         buttonOption3 = findViewById(R.id.alt3);
 
         newQuestion();
-
-        Intent intent = getIntent();
-        timerEnabled = intent.getBooleanExtra("timerEnabled", false);
-        //checking if the switch worked
-        System.out.println(timerEnabled);
+        if(timerEnabled){
+            startTimer();
+        }
 
         View.OnClickListener buttonClickListener = new View.OnClickListener() {
             @Override
@@ -120,9 +118,12 @@ public class GameActivity extends AppCompatActivity {
         List<Animal> randomAnimals = new ArrayList<>();
         Random random = new Random();
 
-        for (int i = 0; i < 3; i++) {
+        while (randomAnimals.size() < 3) {
             int index = random.nextInt(items.size());
-            randomAnimals.add(items.get(index));
+            Animal animal = items.get(index);
+            if (!randomAnimals.contains(animal)) {
+                randomAnimals.add(animal);
+            }
         }
 
         return randomAnimals;

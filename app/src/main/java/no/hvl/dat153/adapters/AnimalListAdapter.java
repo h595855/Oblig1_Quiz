@@ -1,4 +1,4 @@
-package no.hvl.dat153.data;
+package no.hvl.dat153.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import no.hvl.dat153.R;
+import no.hvl.dat153.data.Animal;
 
 public class AnimalListAdapter extends RecyclerView.Adapter<AnimalListAdapter.AnimalViewHolder> {
     private List<Animal> animalList;
