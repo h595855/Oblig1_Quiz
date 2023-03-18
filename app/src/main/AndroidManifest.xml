@@ -12,28 +12,36 @@
         android:theme="@style/Theme.Oblig1_Quiz"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.AddPictureActivity"
+
+            android:name=".activities.AddPictureActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.DatabaseActivity"
+
+            android:name=".activities.DatabaseActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.GameActivity"
+
+            android:name=".activities.GameActivity"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.MainActivity"
+
+            android:name=".activities.MainActivity"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

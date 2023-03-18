@@ -1,46 +1,90 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <TextView
-        android:id="@+id/imageNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="What animal is this?"
-        android:textSize="40sp" />
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="332dp"
-        android:layout_height="473dp"
-        android:layout_gravity="center" />
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.241" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/exitGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="EXIT GAME"
+        app:backgroundTint="#D51414"
+        app:icon="?attr/actionModeCloseDrawable"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/imageNumber"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="What animal is this?"
+        android:textColor="#224CE3"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/alt1"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:text="Option 1" />
+        android:backgroundTint="#27A3B3"
+        android:text="Option 1"
+        app:layout_constraintBottom_toTopOf="@+id/alt2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/alt2"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:text="Option 2" />
+        android:backgroundTint="#FF5722"
+        android:text="Option 2"
+        app:layout_constraintBottom_toTopOf="@+id/alt3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/alt3"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:text="Option 3" />
+        android:layout_marginBottom="13dp"
+        android:text="Option 3"
+        app:layout_constraintBottom_toTopOf="@+id/exitGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/timer_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="24sp"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/secondsRemaining"
+        android:layout_width="335dp"
+        android:layout_height="49dp"
+        android:textAlignment="center"
+        android:textColor="#DC1111"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/alt1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
