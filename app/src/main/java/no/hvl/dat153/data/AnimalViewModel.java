@@ -31,4 +31,11 @@ public class AnimalViewModel extends AndroidViewModel {
     public void deleteAnimal(Animal animal) {
         animalRepo.deleteAnimal(animal);
     }
+
+    public void setRepo(AnimalRepo repo) {
+        animalRepo = repo;
+        allAnimals = animalRepo.getAllAnimals();
+    }
+
+
 }

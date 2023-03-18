@@ -194,7 +194,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }.start();
     }
-
     @Override
     public void onBackPressed(){
         Toast.makeText(this,"Final score is " + stilling, Toast.LENGTH_SHORT).show();
@@ -202,4 +201,7 @@ public class GameActivity extends AppCompatActivity {
         return;
     }
 
+    public int getStilling() {
+        return stilling;
+    }
 }
