@@ -32,6 +32,11 @@ The app is a quiz game where users match names and photos
  
  Useing Android Room DAO to create a easy to manage database for the application.
  The database will store new pictures and the user score.
+ 
+ Tests: 
+Test 1 passed.
+Test 2 Semi function. Can't access pop up window.
+Test 3 failed. Made a fake repo to test it. Could not get it to work.
 
  The code should be submitted as a link to a Git repository, and the instructions also mention to use Git properly, document the code, and make sure 
  navigating back from an activity works correctly.
