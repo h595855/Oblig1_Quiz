@@ -21,6 +21,11 @@ import no.hvl.dat153.adapters.AnimalListAdapter;
 import no.hvl.dat153.data.AnimalViewModel;
 import no.hvl.dat153.util.SwipeToDeleteCallback;
 
+/**
+ * DatabaseActivity is a class that manages the display and interaction of a
+ * list of animals in a database. It allows the user to sort, add, and delete
+ * animals from the list.
+ */
 public class DatabaseActivity extends AppCompatActivity {
 
     private AnimalViewModel animalViewModel;
@@ -30,64 +35,73 @@ public class DatabaseActivity extends AppCompatActivity {
     private ExtendedFloatingActionButton sortAnimalsDatabaseButton;
     private ExtendedFloatingActionButton exitDatabaseButton;
 
+    /**
+     * Initializes the view and its components, and sets up the necessary event
+     * listeners.
+     *
+     * @param savedInstanceState a Bundle object containing the activity's
+     *                           previously saved state, if any.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_databasectivity);
 
+        // Initialize and set click listener for the sort button
         sortAnimalsDatabaseButton = findViewById(R.id.sortAnimalsDatabase);
         sortAnimalsDatabaseButton.setOnClickListener(v -> {
+            // Sort and update the animal list
             animalViewModel.getAllAnimals().observe(this, animals -> {
-                // Sort the animal list alphabetically by name
                 Collections.sort(animals, (a1, a2) -> a1.getName().compareToIgnoreCase(a2.getName()));
-
-                // Update the adapter with the new animal data
                 adapter.setAnimalList(animals);
                 adapter.notifyDataSetChanged();
             });
         });
 
+        // Initialize and set click listener for the exit button
         exitDatabaseButton = findViewById(R.id.exitDatabase);
         exitDatabaseButton.setOnClickListener(v -> {
             onBackPressed();
         });
 
-        //getting listview
+        // Initialize the RecyclerView and its adapter
         recyclerView = findViewById(R.id.recyclerview);
         adapter = new AnimalListAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        //init viewModel
+        // Initialize the AnimalViewModel
         animalViewModel = new ViewModelProvider(this).get(AnimalViewModel.class);
-        System.err.println(animalViewModel.toString());
+        System.err.println(animalViewModel);
 
+        // Observe changes in the animal list and update the adapter
         animalViewModel.getAllAnimals().observe(this, animals -> {
-            // Update the adapter with the new animal data
             adapter.setAnimalList(animals);
             adapter.notifyDataSetChanged();
         });
 
-        //delete onSwipe helpClassCallback
+        // Initialize swipe-to-delete functionality
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapter, animalViewModel));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        //
+        // Initialize the add animal button and set its click listener
         FloatingActionButton addAnimalToDatabaseButton = (FloatingActionButton) findViewById(R.id.addPicture);
-
         addAnimalToDatabaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //making second activity to get update add to list
+                // Launch AddPictureActivity to add a new animal
                 Intent intent = new Intent(DatabaseActivity.this, AddPictureActivity.class);
-                //AddPictureActivity.launch(intent);
                 startActivity(intent);
             }
         });
     }//onCreate
 
+    /**
+     * Called when the activity has detected the user's press of the back key.
+     * Finishes the activity and returns to the previous one.
+     */
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         finish();
     }
 

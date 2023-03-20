@@ -60,9 +60,10 @@ public class AddPictureActivity extends AppCompatActivity {
                         try {
                             //creates new Animal with source object that needs uri that creates byte[] from Bitmap
                             Bitmap selectedImageBitmap = ImageDecoder.decodeBitmap(source);
-                            imageView.setImageBitmap(selectedImageBitmap);
+                            Bitmap scaledBitmap = Bitmap.createScaledBitmap(selectedImageBitmap, 500, 500, false);
+                            imageView.setImageBitmap(scaledBitmap);
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            selectedImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                            scaledBitmap.compress(Bitmap.CompressFormat.PNG, 20, stream);
                             animal = new Animal("among", stream.toByteArray());
                         } catch (IOException e) {
                             e.printStackTrace();
