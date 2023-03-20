@@ -34,9 +34,12 @@ The app is a quiz game where users match names and photos
  The database will store new pictures and the user score.
  
  Tests: 
- Test 1 passed.
- Test 2 Semi function. Can't access pop up window.
- Test 3 failed. Made a fake repo to test it. Could not get it to work.
+ Test 1: Access the game view from main view. 
+ 
+ Test 2  Access the gameview and assert that when an option is selected. Points go up.
+         Error: Was not able to access the score nor the pop up window to get the score.
+ 
+ Test 3 failed. Made a fake repo to test it. Was not able to get it to work propperly.
 
  The code should be submitted as a link to a Git repository, and the instructions also mention to use Git properly, document the code, and make sure 
  navigating back from an activity works correctly.
