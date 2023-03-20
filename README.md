@@ -62,10 +62,17 @@ The app is a quiz game where users match names and photos
 
 # Task 3 APK & ADB
 
-### APK
-- Using Apktool 2.7.0 on app-debug-androidTest.apk
+### APK used when running the test
+INFO: Installing APK: C:\Users\maksi\Documents\git_repos\Oblig1_Quiz\app\build\outputs\apk\androidTest\debug\app-debug-androidTest.apk
+Mar 20, 2023 4:35:01 PM com.google.testing.platform.plugin.android.AndroidDevicePlugin beforeAll
+INFO: Installing APK: C:\Users\maksi\Documents\git_repos\Oblig1_Quiz\app\build\outputs\apk\debug\app-debug.apk
+
+and the APK for the application itself with version 1.0
 
 ### ADB 
 - ADB install
--- Install the APK on the device
+-- Installs the APK for testing on the device using usual commands as
+adb -s emulator-5554 install -r <path-to-test-apk> to install the test APK on the device or emulator.
+adb -s emulator-5554 shell am instrument -w <test-runner-arguments> to execute the test cases.
+the adb executes them in the background and they were not visible in the output while running the testers with ./gradlew connectedAndroidTest --info
 
