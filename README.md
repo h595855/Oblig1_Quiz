@@ -37,7 +37,7 @@ The app is a quiz game where users match names and photos
 ## Test 1: Access the game view from main view.
  - Open mainActivity
  - Click on Quiz button
- - Verify that Gameview (quiz) is opened)
+ - Verify that Gameview (quiz) is opened
  - Close the Activities
  - Release()
  
