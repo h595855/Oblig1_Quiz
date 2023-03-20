@@ -60,6 +60,4 @@ The app is a quiz game where users match names and photos
  - close databaseView
  - Release()
 
- The code should be submitted as a link to a Git repository, and the instructions also mention to use Git properly, document the code, and make sure 
- navigating back from an activity works correctly.
-
+# Task 3 APK & ADB
