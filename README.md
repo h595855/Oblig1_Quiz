@@ -61,3 +61,11 @@ The app is a quiz game where users match names and photos
  - Release()
 
 # Task 3 APK & ADB
+
+### APK
+- Using Apktool 2.7.0 on app-debug-androidTest.apk
+
+### ADB 
+- ADB install
+-- Install the APK on the device
+
