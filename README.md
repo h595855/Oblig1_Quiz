@@ -33,13 +33,30 @@ The app is a quiz game where users match names and photos
  Useing Android Room DAO to create a easy to manage database for the application.
  The database will store new pictures and the user score.
  
- Tests: 
- Test 1: Access the game view from main view. 
+# Tests: 🧪
+## Test 1: Access the game view from main view.
+ - Open mainActivity
+ - Click on Quiz button
+ - Verify that Gameview (quiz) is opened)
+ - Close the Activities
+ - Release()
  
- Test 2  Access the gameview and assert that when an option is selected. Points go up.
-         Error: Was not able to access the score nor the pop up window to get the score.
+## Test 2  Access the gameview and assert that when an option is selected.
+ - Open gameView.
+ - Press the right alternative to the corresponding image
+ - Verify that popup window displays "Correct!"
+ - Verify that popuo windows displays the score with 1 additional point to before.
+ - Close gameView.
+ - Release()
  
- Test 3 failed. Made a fake repo to test it. Was not able to get it to work propperly.
+ ## Test 3 Access the database and uploade a new item and verify that the size is updated, and is size is 1- when the entry is deleted.
+ - Open databaseView
+ - Click add new item
+ - Fill inn name and upload an image.
+ - Press submit.
+ - Verify size is +1.
+ - Delete the entry.
+ - Verify the size is back to before.
 
  The code should be submitted as a link to a Git repository, and the instructions also mention to use Git properly, document the code, and make sure 
  navigating back from an activity works correctly.
